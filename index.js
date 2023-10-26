@@ -1,6 +1,7 @@
 import express from 'express'
 import { create} from 'express-handlebars'
-
+import AuthRouter from './routes/auth.js'
+import ProductsRoutes from "./routes/products.js";
 const app = express()
 
 const hbs = create({
@@ -12,13 +13,8 @@ app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', './views');
 
-app.get('/', (req, res) =>{
-    res.render('index')
-})
-
-app.get('/about', (req,res) =>{
-    res.render('about')
-})
+app.use( AuthRouter)
+app.use( ProductsRoutes)
 
 
 const PORT = process.env.PORT || 4100
