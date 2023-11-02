@@ -1,15 +1,17 @@
-import {Router} from "express"
+import {request, Router} from "express"
 import authMiddleware from '../middleware/auth.js'
 import userMiddleware from '../middleware/user.js'
 import Product from "../models/Product.js";
+
 const router = Router()
 
 router.get('/', async (req, res) =>{
     const products = await Product.find().lean()
-    console.log(products)
+
     res.render('index', {
         title:'Boom shop | Jamshid',
-        products:products,
+        products:products.reverse(),
+        userId:req.userId ? req.userId.toString() : null,
     })
 })
 
