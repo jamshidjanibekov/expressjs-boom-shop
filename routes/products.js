@@ -4,9 +4,12 @@ import userMiddleware from '../middleware/user.js'
 import Product from "../models/Product.js";
 const router = Router()
 
-router.get('/', (req, res) =>{
+router.get('/', async (req, res) =>{
+    const products = await Product.find().lean()
+    console.log(products)
     res.render('index', {
         title:'Boom shop | Jamshid',
+        products:products,
     })
 })
 
