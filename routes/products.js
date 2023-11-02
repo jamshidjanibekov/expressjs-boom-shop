@@ -11,14 +11,19 @@ router.get('/', async (req, res) =>{
     res.render('index', {
         title:'Boom shop | Jamshid',
         products:products.reverse(),
-        userId:req.userId ? req.userId.toString() : null,
+        userId: req.userId ? req.userId.toString() : null,
     })
 })
 
-router.get('/products', (req,res) =>{
+router.get('/products', async (req,res) =>{
+    const user =  req.userId ? req.userId.toString() : null
+    const myProducts = await Product.find({user}).populate('user').lean()
+
+    console.log(myProducts)
     res.render('products',{
         title:'Products | Jamshid',
         isProducts:true,
+        myProducts: myProducts
     })
 })
 router.get('/add', authMiddleware, (req,res) =>{

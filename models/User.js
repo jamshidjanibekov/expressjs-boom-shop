@@ -7,5 +7,5 @@ const UserSchema = new Schema({
     password:{type:String, required:true}
 })
 
-const User = model('USer', UserSchema)
+const User = model('User', UserSchema)
 export default User
